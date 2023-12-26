@@ -1,8 +1,31 @@
-export default async function HomePage({ lang }) {
-    return (
-        <main>
-            hello
+import Events from "../UI/events"
+import Features from "../UI/features"
+import Feedback from "../UI/feedback"
+import Contant from "../UI/form"
+import Header from "../UI/header"
+import TheMain from "../UI/the-main"
+import WhyIs from "../UI/why-us"
+import cls from "./home.module.scss"
 
-        </main>
+export default async function HomePage({ lang, data }) {
+
+    return (
+
+        <div >
+            <div className={cls.wrapper}>
+                <Header />
+                <TheMain dataList={data} />
+                <Features dataList={data} />
+                <div className={cls.side}></div>
+            </div>
+            <div className={cls.wrapper__two}>
+                <WhyIs dataList={data} />
+                <Contant dataList={data} />
+                <div className={cls.side}></div>
+            </div>
+            <Events dataList={data} />
+            <Feedback dataList={data} />
+            {/*<TheFooter /> */}
+        </div>
     )
 }

@@ -1,0 +1,39 @@
+.wrapper,
+.wrapper__two {
+    position: relative;
+
+    .side {
+        background: url('/assets/side.svg');
+        background-position: top;
+        background-size: contain;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 80px;
+        height: 100%;
+        top: 0;
+
+        @media (max-width: 1280px) {
+            width: 40px;
+        }
+
+        @media (max-width: 992px) {
+            display: none;
+        }
+    }
+}
+
+.wrapper {
+    overflow: hidden;
+
+    .side {
+        right: -10px;
+    }
+}
+
+.wrapper__two {
+    overflow: hidden;
+
+    .side {
+        left: -16px;
+    }
+}

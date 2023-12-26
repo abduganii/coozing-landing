@@ -1,0 +1,28 @@
+.burger__btn {
+    display: none;
+
+    @media (max-width: 992px) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.navbar {
+
+    @media (max-width: 992px) {
+        display: none;
+    }
+}
+
+.lang:hover ul {
+    opacity: 1;
+    transition: .4s;
+    visibility: visible;
+}
+
+.login {
+    @media (max-width: 992px) {
+        display: none;
+    }
+}

@@ -1,0 +1,32 @@
+
+.form__label {
+    width: calc(50% - 10px);
+
+    @media (max-width: 576px) {
+        width: 100%;
+    }
+}
+
+.form__img {
+    width: 37%;
+
+    @media (max-width: 1200px) {
+        width: 42%;
+    }
+
+    @media (max-width: 1024px) {
+        display: none;
+    }
+}
+
+.form__box {
+    width: 60%;
+
+    @media (max-width: 1200px) {
+        width: 56%;
+    }
+
+    @media (max-width: 1024px) {
+        width: 100%;
+    }
+}
