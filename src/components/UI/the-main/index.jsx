@@ -21,8 +21,8 @@ export default function TheMain({ dataList }) {
                         <h3 className={`${cls.title} text-[#374151] tracking-wide text-sm font-semibold leading-5 mb-5`}>achievements</h3>
                         <ul className="flex w-full items-center justify-between gap-8 tt:gap-4">
                             {
-                                dataList && dataList?.header_content?.map(e => (
-                                    <li key={e?.id} className="tt:w-[160px] w-[33%]">
+                                dataList && dataList?.header_content?.map((e,i) => (
+                                    <li key={i} className="tt:w-[160px] w-[33%]">
                                         <h2 className="text-[#1F2937] font-extrabold text-4xl leading-10">{e?.count}</h2>
                                         <h3 className="text-[#374151] text-base	leading-4 mt-4 font-medium">{e?.title}</h3>
                                     </li>

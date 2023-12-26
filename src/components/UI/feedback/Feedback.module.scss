@@ -1,13 +1,14 @@
 .feedback__item {
-    width: 100%;
+  width: 100%;
+  max-width: 400px;
 }
 
 .arrow {
-    width: 0;
-    height: 0;
-    border: 20px solid transparent;
-    border-top-color: #F3F4F6;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border: 20px solid transparent;
+  border-top-color: #f3f4f6;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }

@@ -1,28 +1,21 @@
 .burger__btn {
-    display: none;
+  display: none;
 
-    @media (max-width: 992px) {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+  @media (max-width: 992px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .navbar {
-
-    @media (max-width: 992px) {
-        display: none;
-    }
-}
-
-.lang:hover ul {
-    opacity: 1;
-    transition: .4s;
-    visibility: visible;
+  @media (max-width: 992px) {
+    display: none;
+  }
 }
 
 .login {
-    @media (max-width: 992px) {
-        display: none;
-    }
+  @media (max-width: 992px) {
+    display: none;
+  }
 }
