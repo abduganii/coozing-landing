@@ -3,15 +3,33 @@ import Image from "next/image";
 import cls from "./form.module.scss";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
+import { useForm, Controller } from "react-hook-form";
+import toast, { Toaster } from "react-hot-toast";
+import { SendRequest } from "@/service/api";
 
-export default function Contant({ dataList }) {
+export default function Contant({ dataList, lang }) {
   const { t } = useTranslation(["home"]);
   const [resion, setRegion] = useState(null);
   const [districts, setDistricts] = useState(null);
   const [colaction, setcolaction] = useState(null);
-  console.log(resion, "region");
-  console.log(colaction, "colaction");
-  console.log(resion, "region");
+  const [loading, setLoading] = useState(false);
+  const { register, setValue, handleSubmit, control, reset } = useForm();
+
+  const SendRequestFunc = async (data) => {
+    setLoading(true);
+    await SendRequest(data, lang)
+      .then((res) => {
+        toast.success("request sended successfully");
+      })
+      .catch((err) => {
+        toast.error("failed to send request");
+      })
+      .finally(() => {
+        reset();
+        setLoading(false);
+      });
+  };
+
   useEffect(() => {
     const fetchRigion = async () => {
       try {
@@ -66,7 +84,10 @@ export default function Contant({ dataList }) {
                 ? dataList?.form_subtitle
                 : "Заполните форму, и мы свяжемся с вами!"}
             </h3>
-            <form className="notel:mt-7 mt-3">
+            <form
+              className="notel:mt-7 mt-3"
+              onSubmit={handleSubmit(SendRequestFunc)}
+            >
               <div className="flex flex-wrap gap-[20px]">
                 <label className={cls.form__label} htmlFor="name">
                   <h4 className="text-[#374151] font-medium text-xl">
@@ -77,6 +98,8 @@ export default function Contant({ dataList }) {
                     className="w-full outline-0 mt-2 px-4 flex items-center h-[48px] bg-white rounded-lg border border-[#D1D5DB]"
                     id="name"
                     type="text"
+                    placeholder={t("name")}
+                    {...register("name", { required: true })}
                   />
                 </label>
                 <label className={cls.form__label} htmlFor="surname">
@@ -87,6 +110,8 @@ export default function Contant({ dataList }) {
                     className="w-full outline-0 mt-2 px-4 flex items-center h-[48px] bg-white rounded-lg border border-[#D1D5DB]"
                     id="surname"
                     type="text"
+                    placeholder={t("last_name")}
+                    {...register("last_name", { required: true })}
                   />
                 </label>
                 <label className={cls.form__label} htmlFor="tel">
@@ -96,7 +121,7 @@ export default function Contant({ dataList }) {
                     type="text"
                     name="num"
                     id="tel"
-                    pattern="^[+][9][9][8]\d{9}$"
+                    {...register("phone", { required: true })}
                     placeholder="+998"
                   />
                 </label>
@@ -108,7 +133,13 @@ export default function Contant({ dataList }) {
                     className="w-full outline-0 mt-2 px-4 flex items-center h-[48px] bg-white rounded-lg border border-[#D1D5DB]"
                     name="direction"
                     id="direction"
+                    onChange={(e) => {
+                      setValue("service_collection", e.target.value);
+                    }}
                   >
+                    <option selected disabled value="null">
+                      {t("direction")}
+                    </option>
                     {colaction?.data &&
                       colaction?.data?.map((e) => (
                         <option key={e?.id} value={e?.id}>
@@ -126,7 +157,13 @@ export default function Contant({ dataList }) {
                     className="w-full outline-0 mt-2 px-4 flex items-center h-[48px] bg-white rounded-lg border border-[#D1D5DB]"
                     name="city"
                     id="city"
+                    onChange={(e) => {
+                      setValue("region", e.target.value);
+                    }}
                   >
+                    <option selected disabled value="null">
+                      {t("sity")}
+                    </option>
                     {resion?.data &&
                       resion?.data?.map((e) => (
                         <option key={e?.id} value={e?.id}>
@@ -143,7 +180,13 @@ export default function Contant({ dataList }) {
                     className="w-full outline-0 mt-2 px-4 flex items-center h-[48px] bg-white rounded-lg border border-[#D1D5DB]"
                     name="district"
                     id="district"
+                    onChange={(e) => {
+                      setValue("district", e.target.value);
+                    }}
                   >
+                    <option selected disabled value="null">
+                      {t("region")}
+                    </option>
                     {districts?.data &&
                       districts?.data?.map((e) => (
                         <option key={e?.id} value={e?.id}>
@@ -173,6 +216,8 @@ export default function Contant({ dataList }) {
           </div>
         </div>
       </section>
+
+      <Toaster />
     </>
   );
 }
