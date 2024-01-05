@@ -5,8 +5,8 @@ import Lang from "../lang";
 
 export default function Header({ lang }) {
   return (
-    <header className="py-6">
-      <div className="container flex justify-between items-center	">
+    <header className="py-4 z-10 fixed w-full bg-white">
+      <div className="container flex  justify-between items-center	">
         <div className={cls.burger__btn}>
           <Image
             width={30}
