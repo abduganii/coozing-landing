@@ -19,7 +19,7 @@ export default async function HomePage({ lang, data }) {
       </div>
       <div className={cls.wrapper__two}>
         <WhyIs dataList={data} />
-        <Contant dataList={data} />
+        <Contant lang={lang} dataList={data} />
         <div className={cls.side}></div>
       </div>
       <Events dataList={data} />

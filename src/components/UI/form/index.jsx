@@ -2,9 +2,54 @@
 import Image from "next/image";
 import cls from "./form.module.scss";
 import { useTranslation } from "react-i18next";
+import { useEffect, useState } from "react";
 
 export default function Contant({ dataList }) {
   const { t } = useTranslation(["home"]);
+  const [resion, setRegion] = useState(null);
+  const [districts, setDistricts] = useState(null);
+  const [colaction, setcolaction] = useState(null);
+  console.log(resion, "region");
+  console.log(colaction, "colaction");
+  console.log(resion, "region");
+  useEffect(() => {
+    const fetchRigion = async () => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/regions`);
+        const result = await response.json();
+        setRegion(result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    const fetchDistricts = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_URL}/districts`
+        );
+        const result = await response.json();
+        setDistricts(result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    const fetchcollections = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_URL}/service-collections`
+        );
+        const result = await response.json();
+        setcolaction(result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchRigion();
+    fetchDistricts();
+    fetchcollections();
+  }, []);
 
   return (
     <>
@@ -23,7 +68,7 @@ export default function Contant({ dataList }) {
             </h3>
             <form className="notel:mt-7 mt-3">
               <div className="flex flex-wrap gap-[20px]">
-                <label className={cls.form__label} for="name">
+                <label className={cls.form__label} htmlFor="name">
                   <h4 className="text-[#374151] font-medium text-xl">
                     {" "}
                     {t("name")}
@@ -34,7 +79,7 @@ export default function Contant({ dataList }) {
                     type="text"
                   />
                 </label>
-                <label className={cls.form__label} for="surname">
+                <label className={cls.form__label} htmlFor="surname">
                   <h4 className="text-[#374151] font-medium text-xl">
                     {t("last_name")}
                   </h4>
@@ -44,7 +89,7 @@ export default function Contant({ dataList }) {
                     type="text"
                   />
                 </label>
-                <label className={cls.form__label} for="tel">
+                <label className={cls.form__label} htmlFor="tel">
                   <h4 className="text-[#374151] font-medium text-xl"> phone</h4>
                   <input
                     className="w-full outline-0 mt-2 px-4 flex items-center h-[48px] bg-white rounded-lg border border-[#D1D5DB]"
@@ -55,7 +100,7 @@ export default function Contant({ dataList }) {
                     placeholder="+998"
                   />
                 </label>
-                <label className={cls.form__label} for="direction">
+                <label className={cls.form__label} htmlFor="direction">
                   <h4 className="text-[#374151] font-medium text-xl">
                     {t("direction")}
                   </h4>
@@ -64,12 +109,15 @@ export default function Contant({ dataList }) {
                     name="direction"
                     id="direction"
                   >
-                    <option key="item.id" value="item.id">
-                      name
-                    </option>
+                    {colaction?.data &&
+                      colaction?.data?.map((e) => (
+                        <option key={e?.id} value={e?.id}>
+                          {e?.name}
+                        </option>
+                      ))}
                   </select>
                 </label>
-                <label className={cls.form__label} for="city">
+                <label className={cls.form__label} htmlFor="city">
                   <h4 className="text-[#374151] font-medium text-xl">
                     {" "}
                     {t("sity")}
@@ -79,16 +127,15 @@ export default function Contant({ dataList }) {
                     name="city"
                     id="city"
                   >
-                    <option
-                      v-for="item in regions"
-                      key="item.id"
-                      value="item.id"
-                    >
-                      name
-                    </option>
+                    {resion?.data &&
+                      resion?.data?.map((e) => (
+                        <option key={e?.id} value={e?.id}>
+                          {e?.name}
+                        </option>
+                      ))}
                   </select>
                 </label>
-                <label className={cls.form__label} for="district">
+                <label className={cls.form__label} htmlFor="district">
                   <h4 className="text-[#374151] font-medium text-xl">
                     {t("region")}
                   </h4>
@@ -97,9 +144,12 @@ export default function Contant({ dataList }) {
                     name="district"
                     id="district"
                   >
-                    <option key="item.id" value="item.id">
-                      name
-                    </option>
+                    {districts?.data &&
+                      districts?.data?.map((e) => (
+                        <option key={e?.id} value={e?.id}>
+                          {e?.name}
+                        </option>
+                      ))}
                   </select>
                 </label>
               </div>
